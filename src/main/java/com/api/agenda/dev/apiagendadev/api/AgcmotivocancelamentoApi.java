@@ -1,6 +1,7 @@
 package com.api.agenda.dev.apiagendadev.api;
 
 import com.api.agenda.dev.apiagendadev.domain.Agcmotivocancelamento;
+import com.api.agenda.dev.apiagendadev.domain.Util.CustomErrorType;
 import com.api.agenda.dev.apiagendadev.repository.AgcmotivocancelamentoRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,16 @@ public class AgcmotivocancelamentoApi {
     public ResponseEntity<?> getAgcmotivocancelamento(@PathVariable("id") Long id) {
         Optional<Agcmotivocancelamento> agcmotivocancelamento = agcmotivocancelamentoDao.findById(id);
 
+        if (agcmotivocancelamento == null) {
+            return new ResponseEntity<>(new CustomErrorType("Motivo nao encontrado."), HttpStatus.NOT_FOUND);
+        }
+
         return new ResponseEntity<>(agcmotivocancelamento, HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/findByNoAgcmotivocancelamento/{noAgcmotivocancelamento}")
+    public ResponseEntity<?> findByNoAgcmotivocancelamento(@PathVariable("noAgcmotivocancelamento") String noAgcmotivocancelamento) {
+        return new ResponseEntity<>(agcmotivocancelamentoDao.findByNoAgcmotivocancelamento(noAgcmotivocancelamento), HttpStatus.OK);
     }
 
     @PostMapping

@@ -4,7 +4,6 @@ import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.util.Objects;
 
 @Entity
 public class Agcmotivocancelamento {
